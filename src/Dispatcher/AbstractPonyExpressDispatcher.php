@@ -12,12 +12,12 @@ abstract class AbstractPonyExpressDispatcher implements SplSubject
      * AbstractPonyExpressDispatcher constructor.
      * @param string $number
      * @param string $text
-     * @param SplObjectStorage $observer
+     * @param SplObjectStorage $observers
      */
     public function __construct(
         protected string $number,
         protected string $text,
-        protected SplObjectStorage $observer = new SplObjectStorage()
+        protected SplObjectStorage $observers = new SplObjectStorage()
     ) {}
 
     /**
@@ -27,7 +27,7 @@ abstract class AbstractPonyExpressDispatcher implements SplSubject
      */
     public function attach(SplObserver $observer): void
     {
-        $this->observer->attach($observer);
+        $this->observers->attach($observer);
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class AbstractPonyExpressDispatcher implements SplSubject
      */
     public function detach(SplObserver $observer): void
     {
-        $this->observer->detach($observer);
+        $this->observers->detach($observer);
     }
 
     /**
@@ -46,7 +46,9 @@ abstract class AbstractPonyExpressDispatcher implements SplSubject
      */
     public function notify(): void
     {
-        $this->observer->store($this);
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
     }
 
     abstract public function send();
