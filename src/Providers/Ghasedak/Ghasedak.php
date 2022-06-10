@@ -3,6 +3,8 @@
 namespace PonyExpress\Providers\Ghasedak;
 
 use PonyExpress\Dispatcher\AbstractPonyExpressDispatcher;
+use PonyExpress\Utilities\RabbitMq\RabbitMqProducer;
+use PonyExpress\Helpers\JSON;
 
 class Ghasedak extends AbstractPonyExpressDispatcher
 {
@@ -12,5 +14,11 @@ class Ghasedak extends AbstractPonyExpressDispatcher
     public function send()
     {
         GhasedakApiSingleton::getInstance()->SendSimple($this->number, $this->text, self::LINE_NUMBER);
+    }
+
+    public function sendAsync()
+    {
+        RabbitMqProducer::sender('messages', JSON::encoder($this->number, $this->text));
+        $this->notify();
     }
 }
