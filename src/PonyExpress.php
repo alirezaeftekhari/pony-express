@@ -7,11 +7,6 @@ use PonyExpress\Storage\AbstractPonyExpressStorage;
 
 class PonyExpress
 {
-    public function send(AbstractPonyExpressDispatcher $dispatcher)
-    {
-        $dispatcher->send();
-    }
-
     public function sendAsync(AbstractPonyExpressDispatcher $dispatcher)
     {
         $dispatcher->sendAsync();
