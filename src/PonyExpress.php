@@ -12,6 +12,11 @@ class PonyExpress
         $dispatcher->send();
     }
 
+    public function sendAsync(AbstractPonyExpressDispatcher $dispatcher)
+    {
+        $dispatcher->sendAsync();
+    }
+
     public function store(AbstractPonyExpressStorage $storage)
     {
         $storage->store();
