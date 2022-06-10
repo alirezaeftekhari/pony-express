@@ -6,7 +6,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class RabbitMqProducer
 {
-    public static function send(string $queueName, string $text)
+    public static function sender(string $queueName, string $text)
     {
         $channel = AMQPStreamConnection::getInstance()->channel();
 
