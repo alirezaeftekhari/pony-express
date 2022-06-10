@@ -2,6 +2,8 @@
 
 namespace PonyExpress\Dispatcher;
 
+use PonyExpress\Helpers\JSON;
+use PonyExpress\Utilities\RabbitMq\RabbitMqProducer;
 use SplSubject;
 use SplObserver;
 use SplObjectStorage;
@@ -51,7 +53,15 @@ abstract class AbstractPonyExpressDispatcher implements SplSubject
         }
     }
 
-    abstract public function send();
+    /**
+     * AbstractPonyExpressDispatcher sendAsync.
+     * @return void
+     */
+    public function sendAsync(): void
+    {
+        RabbitMqProducer::sender('messages', JSON::encoder($this->number, $this->text, static::class));
+        $this->notify();
+    }
 
-    abstract public function sendAsync();
+    abstract public static function send(string $number, string $text);
 }
