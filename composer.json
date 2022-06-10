@@ -13,7 +13,8 @@
     "php": "^8.1",
     "ext-json": "*",
     "psr/http-client": "^1.0",
-    "ghasedak/php": "^1.0"
+    "ghasedak/php": "^1.0",
+    "php-amqplib/php-amqplib": "^3.2"
   },
   "require-dev": {
     "ext-curl": "*",
