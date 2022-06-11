@@ -2,6 +2,7 @@
 
 namespace PonyExpress\Utilities;
 
+use Exception;
 use PonyExpress\Helpers\JSON;
 
 class Sms
@@ -16,8 +17,16 @@ class Sms
             $text = $decodedMessage['text'];
             $provider = $decodedMessage['provider'];
 
-            $provider::send($number, $text);
-            echo "$number $text $provider".PHP_EOL;
+            try {
+                $provider::send($number, $text);
+                echo "Message successfully sent!".PHP_EOL;
+                echo "provider: $provider".PHP_EOL;
+                echo "number: $number | text: $text".PHP_EOL;
+            } catch (Exception $exception) {
+                echo "****************** Attention: ******************".PHP_EOL;
+                echo $exception->getMessage();
+            }
+
         };
     }
 }
