@@ -4,8 +4,5 @@ require_once __DIR__."/vendor/autoload.php";
 use PonyExpress\Providers\Ghasedak\Ghasedak;
 use PonyExpress\PonyExpress;
 
-$ghasedak = new Ghasedak("09120635002", "Hi Pure!");
 $ponyExpress = new PonyExpress();
-$ponyExpress->sendAsync($ghasedak);
-
-
+$ponyExpress->sendAsync(new Ghasedak("09120635002", "IM FROM POLY EXPRESS"));
