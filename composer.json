@@ -1,7 +1,9 @@
 {
   "autoload": {
     "psr-4": {
-      "PonyExpress\\": "src/"
+      "PonyExpress\\": "src/",
+      "App\\": "app/",
+      "Core\\": "core/"
     }
   },
   "autoload-dev": {
