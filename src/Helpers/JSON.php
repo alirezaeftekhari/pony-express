@@ -11,4 +11,9 @@ class JSON
             'provider' => $provider
         ]);
     }
+
+    public static function decoder(string $json): array
+    {
+        return json_decode($json, true);
+    }
 }
