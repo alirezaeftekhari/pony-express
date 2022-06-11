@@ -24,7 +24,11 @@ abstract class AbstractPonyExpressDispatcher
      */
     public function sendAsync(): void
     {
-        RabbitMq::broker('messages', JSON::encoder($this->number, $this->text, static::class));
+        RabbitMq::broker('messages', JSON::encoder([
+            "number" => $this->number,
+            "text" => $this->text,
+            "provider" => static::class
+        ]));
     }
 
     abstract public static function send(string $number, string $text);
