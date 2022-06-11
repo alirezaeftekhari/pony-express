@@ -2,9 +2,9 @@
 
 namespace PonyExpress\Providers\KaveNegar;
 
-use PonyExpress\Dispatcher\AbstractPonyExpressDispatcher;
+use PonyExpress\Providers\AbstractProvider;
 
-class KaveNegar extends AbstractPonyExpressDispatcher
+class KaveNegar extends AbstractProvider
 {
     final const LINE_NUMBER = '10004346';
 

@@ -1,15 +1,14 @@
 <?php
 
-namespace PonyExpress\Dispatcher;
+namespace PonyExpress\Providers;
 
 use PonyExpress\Helpers\JSON;
 use PonyExpress\Utilities\MessageBrokers\RabbitMq;
 
-
-abstract class AbstractPonyExpressDispatcher
+abstract class AbstractProvider
 {
     /**
-     * AbstractPonyExpressDispatcher constructor.
+     * AbstractProvider constructor.
      * @param string $number
      * @param string $text
      */
@@ -19,7 +18,7 @@ abstract class AbstractPonyExpressDispatcher
     ) {}
 
     /**
-     * AbstractPonyExpressDispatcher sendAsync.
+     * AbstractProvider sendAsync.
      * @return void
      */
     public function sendAsync(): void
@@ -28,6 +27,18 @@ abstract class AbstractPonyExpressDispatcher
             "number" => $this->number,
             "text" => $this->text,
             "provider" => static::class
+        ]));
+    }
+
+    public function store(string $status): void
+    {
+        $queueName = $status === 'sent' ? 'sent-messages' : 'failed-messages' ;
+
+        RabbitMq::broker($queueName, JSON::encoder([
+            "number" => $this->number,
+            "text" => $this->text,
+            "provider" => static::class,
+            'status' => $status
         ]));
     }
 

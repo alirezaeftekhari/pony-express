@@ -3,10 +3,10 @@
 namespace PonyExpress\Providers\Ghasedak;
 
 use Exception;
-use PonyExpress\Dispatcher\AbstractPonyExpressDispatcher;
+use PonyExpress\Providers\AbstractProvider;
 use PonyExpress\Helpers\JSON;
 
-class Ghasedak extends AbstractPonyExpressDispatcher
+class Ghasedak extends AbstractProvider
 {
     final const LINE_NUMBER = '10008566';
 
