@@ -3,7 +3,7 @@
 namespace PonyExpress\Dispatcher;
 
 use PonyExpress\Helpers\JSON;
-use PonyExpress\Utilities\RabbitMq\RabbitMqProducer;
+use PonyExpress\Utilities\MessageBrokers\RabbitMq;
 
 
 abstract class AbstractPonyExpressDispatcher
@@ -24,7 +24,7 @@ abstract class AbstractPonyExpressDispatcher
      */
     public function sendAsync(): void
     {
-        RabbitMqProducer::sender('messages', JSON::encoder($this->number, $this->text, static::class));
+        RabbitMq::sender('messages', JSON::encoder($this->number, $this->text, static::class));
     }
 
     abstract public static function send(string $number, string $text);
