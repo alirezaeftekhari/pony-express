@@ -8,7 +8,7 @@ use PonyExpress\Helpers\JSON;
 
 class Ghasedak extends AbstractPonyExpressDispatcher
 {
-    final const LINE_NUMBER = '50001212125077';
+    final const LINE_NUMBER = '10008566';
 
     /**
      * @throws Exception
