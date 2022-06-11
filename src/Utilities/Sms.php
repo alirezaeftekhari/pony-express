@@ -11,10 +11,12 @@ class Sms
         return function ($message) {
             $messageBody = $message->body;
             $decodedMessage = JSON::decoder($messageBody);
+
             $number = $decodedMessage['number'];
             $text = $decodedMessage['text'];
             $provider = $decodedMessage['provider'];
 
+            $provider::send($number, $text);
             echo "$number $text $provider".PHP_EOL;
         };
     }
