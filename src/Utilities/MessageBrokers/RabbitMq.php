@@ -22,7 +22,7 @@ class RabbitMq
         $connection->close();
     }
 
-    public static function sender(string $queueName)
+    public static function smsSender(string $queueName)
     {
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel = $connection->channel();
@@ -30,6 +30,34 @@ class RabbitMq
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
         $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::sender());
+
+        while ($channel->is_open()) {
+            $channel->wait();
+        }
+    }
+
+    public static function successfulSmsStorage(string $queueName)
+    {
+        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
+
+        $channel->queue_declare(queue: $queueName, auto_delete: false);
+
+        $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::successfulSmsStorage());
+
+        while ($channel->is_open()) {
+            $channel->wait();
+        }
+    }
+
+    public static function failedSmsStorage(string $queueName)
+    {
+        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
+
+        $channel->queue_declare(queue: $queueName, auto_delete: false);
+
+        $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::failedSmsStorage());
 
         while ($channel->is_open()) {
             $channel->wait();
