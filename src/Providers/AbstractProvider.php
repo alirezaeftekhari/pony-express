@@ -2,6 +2,7 @@
 
 namespace PonyExpress\Providers;
 
+use Exception;
 use PonyExpress\Helpers\JSON;
 use PonyExpress\Utilities\MessageBrokers\RabbitMq;
 
@@ -19,15 +20,20 @@ abstract class AbstractProvider
 
     /**
      * AbstractProvider sendAsync.
-     * @return void
+     * @return string|bool
      */
-    public function sendAsync(): void
+    public function sendAsync(): string|bool
     {
-        RabbitMq::broker('messages', JSON::encoder([
-            "number" => $this->number,
-            "text" => $this->text,
-            "provider" => static::class
-        ]));
+        try {
+            RabbitMq::broker('messages', JSON::encoder([
+                "number" => $this->number,
+                "text" => $this->text,
+                "provider" => static::class
+            ]));
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+        return true;
     }
 
     public function store(string $status): void

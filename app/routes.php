@@ -4,4 +4,4 @@ namespace App;
 
 use Core\Router;
 
-Router::addRoute('/', [Controllers\HomeController::class, 'index']);
+Router::addRoute('/', [Controllers\SmsSenderController::class, 'index']);
