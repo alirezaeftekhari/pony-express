@@ -12,8 +12,10 @@ class JSON
         ]);
     }
 
-    public static function decoder(string $json): array
+    public static function decoder(mixed $object): mixed
     {
-        return json_decode($json, true);
+        return is_object($object)
+            ? json_decode(json_encode($object), true)
+            : json_decode($object, true);
     }
 }
