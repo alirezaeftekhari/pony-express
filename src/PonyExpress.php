@@ -2,18 +2,17 @@
 
 namespace PonyExpress;
 
-use PonyExpress\Dispatcher\AbstractPonyExpressDispatcher;
-use PonyExpress\Storage\AbstractPonyExpressStorage;
+use PonyExpress\Providers\AbstractProvider;
 
 class PonyExpress
 {
-    public function sendAsync(AbstractPonyExpressDispatcher $dispatcher)
+    public function sendAsync(AbstractProvider $provider)
     {
-        $dispatcher->sendAsync();
+        $provider->sendAsync();
     }
 
-    public function store(AbstractPonyExpressStorage $storage)
+    public function store(AbstractProvider $provider, string $status)
     {
-        $storage->store();
+        $provider->store($status);
     }
 }
