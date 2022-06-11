@@ -33,4 +33,21 @@ class Mysql
         $stmt->bindParam(":status", $status);
         $stmt->execute();
     }
+
+    public function read(string $sql, mixed $number, mixed $text, mixed $provider, mixed $status): array
+    {
+        $stmt = $this->connection->prepare($sql);
+
+        if (isset($number) and $number !== 'undefined')
+            $stmt->bindParam(":number", $number);
+        if (isset($text) and $text !== 'undefined')
+            $stmt->bindParam(":text", $text);
+        if (isset($provider) and $provider !== 'undefined')
+            $stmt->bindParam(":provider", $provider);
+        if (isset($status) and $status !== 'undefined')
+            $stmt->bindParam(":status", $status);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
