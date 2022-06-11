@@ -4,7 +4,7 @@ namespace PonyExpress\Utilities\MessageBrokers;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use PonyExpress\Helpers\Sms;
+use PonyExpress\Utilities\Sms;
 
 class RabbitMq
 {
