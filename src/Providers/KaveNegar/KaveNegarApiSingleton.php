@@ -4,13 +4,14 @@ namespace PonyExpress\Providers\KaveNegar;
 
 use Kavenegar\KavenegarApi;
 
-class KaveNegarSingleton extends KavenegarApi
+class KaveNegarApiSingleton extends KavenegarApi
 {
+    final const API_KEY = 'your api key';
     private static KavenegarApi $kavenegarApi;
 
     private function __construct()
     {
-        parent::__construct(KaveNegar::API_KEY);
+        parent::__construct(self::API_KEY);
     }
 
     public static function getInstance(): self

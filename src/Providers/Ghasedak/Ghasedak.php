@@ -2,15 +2,27 @@
 
 namespace PonyExpress\Providers\Ghasedak;
 
+use Exception;
 use PonyExpress\Dispatcher\AbstractPonyExpressDispatcher;
+use PonyExpress\Helpers\JSON;
 
 class Ghasedak extends AbstractPonyExpressDispatcher
 {
-    final const API_KEY = 'fb987e82b13dad3af68d64896f4c005a3a8f1abaa5a714e38096d62fcd862ffc';
     final const LINE_NUMBER = '10008566';
 
+    /**
+     * @throws Exception
+     */
     public static function send(string $number, string $text)
     {
-        GhasedakApiSingleton::getInstance()->SendSimple($number, $text, self::LINE_NUMBER);
+        $responseObject = GhasedakApiSingleton::getInstance()->SendSimple($number, $text, self::LINE_NUMBER);
+        if (is_null($responseObject)) {
+            throw new Exception("something is wrong with 'Ghasedak' API");
+        }
+
+        $response = JSON::decoder($responseObject);
+        if ($response['result']['message'] !== 'success') {
+            throw new Exception("Message did not be sent to $number with text: $text");
+        }
     }
 }
