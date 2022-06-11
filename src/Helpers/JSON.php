@@ -4,12 +4,8 @@ namespace PonyExpress\Helpers;
 
 class JSON
 {
-    public static function encoder(string $number, string $text, string $provider): string {
-        return json_encode([
-            'number' => $number,
-            'text' => $text,
-            'provider' => $provider
-        ]);
+    public static function encoder(array $params): string {
+        return json_encode($params);
     }
 
     public static function decoder(mixed $object): mixed
