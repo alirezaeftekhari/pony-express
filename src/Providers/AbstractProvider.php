@@ -36,15 +36,20 @@ abstract class AbstractProvider
         return true;
     }
 
-    public function store(string $status): void
+    public function store(string $status): string|bool
     {
         $queueName = $status === 'sent' ? 'sent-messages' : 'failed-messages' ;
 
-        RabbitMq::broker($queueName, JSON::encoder([
-            "number" => $this->number,
-            "text" => $this->text,
-            "provider" => static::class
-        ]));
+        try {
+            RabbitMq::broker($queueName, JSON::encoder([
+                "number" => $this->number,
+                "text" => $this->text,
+                "provider" => static::class
+            ]));
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+        return true;
     }
 
     abstract public static function send(string $number, string $text);

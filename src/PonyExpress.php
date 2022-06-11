@@ -11,7 +11,7 @@ class PonyExpress
         return $provider->sendAsync();
     }
 
-    public function store(AbstractProvider $provider, string $status)
+    public function store(AbstractProvider $provider, string $status): string|bool
     {
         $provider->store($status);
     }
