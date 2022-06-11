@@ -37,8 +37,7 @@ abstract class AbstractProvider
         RabbitMq::broker($queueName, JSON::encoder([
             "number" => $this->number,
             "text" => $this->text,
-            "provider" => static::class,
-            'status' => $status
+            "provider" => static::class
         ]));
     }
 
