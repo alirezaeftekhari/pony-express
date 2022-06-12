@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Controllers;
 
-use Exception;
 use PonyExpress\Helpers\JSON;
-use Core\View;
 use App\Models\Message;
 
 class ReportController
@@ -17,14 +14,5 @@ class ReportController
         $status = filter_input(INPUT_POST, 'status');
 
         echo JSON::encoder(Message::read($number, $text, $provider, $status));
-    }
-
-    public function report()
-    {
-        try {
-            echo View::render('report');
-        } catch (Exception $exception) {
-            echo $exception->getMessage();
-        }
     }
 }
