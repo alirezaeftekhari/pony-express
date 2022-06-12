@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
-use PonyExpress\Utilities\DataBase\Mysql;
+use Exception;
 use PonyExpress\Helpers\JSON;
 use Core\View;
+use App\Models\Message;
 
 class ReportController
 {
@@ -15,23 +16,15 @@ class ReportController
         $provider = filter_input(INPUT_POST, 'provider');
         $status = filter_input(INPUT_POST, 'status');
 
-        $sql = "select * from Messages where 1 ";
-
-        (isset($number) and $number     !== 'undefined' and !empty($number))    ? $sql .= " and number like :number" : $sql .= '';
-        (isset($text) and $text         !== 'undefined' and !empty($text))      ? $sql .= " and text like :text" : $sql .= '';
-        (isset($provider) and $provider !== 'undefined' and !empty($provider))  ? $sql .= " and provider = :provider" : $sql .= '';
-        (isset($status) and $status     !== 'undefined' and !empty($status))    ? $sql .= " and status = :status" : $sql .= '';
-
-        $mysql = new Mysql();
-
-        $data = $mysql->read($sql, $number, $text, $provider, $status);
-
-        echo JSON::encoder($data);
+        echo JSON::encoder(Message::read($number, $text, $provider, $status));
     }
 
     public function report()
     {
-        echo View::render('report');
+        try {
+            echo View::render('report');
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
-
 }
