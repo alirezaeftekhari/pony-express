@@ -17,10 +17,10 @@ class ReportController
 
         $sql = "select * from Messages where 1 ";
 
-        (isset($number) and $number     !== 'undefined' and !empty($number))      ? $sql .= " and number = :number" : $sql .= '';
-        (isset($text) and $text         !== 'undefined' and !empty($text))      ? $sql .= " and text like %:text%" : $sql .= '';
-        (isset($provider) and $provider !== 'undefined' and !empty($provider))      ? $sql .= " and provider = :provider" : $sql .= '';
-        (isset($status) and $status     !== 'undefined' and !empty($status))      ? $sql .= " and status = :status" : $sql .= '';
+        (isset($number) and $number     !== 'undefined' and !empty($number))    ? $sql .= " and number = :number" : $sql .= '';
+        (isset($text) and $text         !== 'undefined' and !empty($text))      ? $sql .= " and text like :text" : $sql .= '';
+        (isset($provider) and $provider !== 'undefined' and !empty($provider))  ? $sql .= " and provider = :provider" : $sql .= '';
+        (isset($status) and $status     !== 'undefined' and !empty($status))    ? $sql .= " and status = :status" : $sql .= '';
 
         $mysql = new Mysql();
 
