@@ -4,7 +4,7 @@ namespace PonyExpress\Providers;
 
 use Exception;
 use PonyExpress\Helpers\JSON;
-use PonyExpress\Utilities\MessageBrokers\RabbitMq;
+use PonyExpress\Utilities\MessageBrokers\RabbitMq\RabbitMq;
 
 abstract class AbstractProvider
 {
