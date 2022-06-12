@@ -4,6 +4,7 @@ namespace PonyExpress\Utilities\Mysql;
 
 use PDO;
 use PDOException;
+use phpseclib3\File\ASN1\Maps\BasicConstraints;
 
 class Mysql
 {
@@ -11,13 +12,8 @@ class Mysql
 
     public function __construct()
     {
-        $host = $_ENV['MYSQL_HOST'];
-        $db = $_ENV['MYSQL_DB'];
-        $user = $_ENV['MYSQL_USER'];
-        $pass = $_ENV['MYSQL_PASS'];
-
         try {
-            $this->connection = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+            $this->connection = new PDO("mysql:host=".$_ENV['MYSQL_HOST'].";dbname=".$_ENV['MYSQL_DB'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASS']);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $PDOException) {
             echo $PDOException->getMessage().PHP_EOL;
