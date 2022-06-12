@@ -4,7 +4,6 @@ namespace PonyExpress\Utilities\Mysql;
 
 use PDO;
 use PDOException;
-use phpseclib3\File\ASN1\Maps\BasicConstraints;
 
 class Mysql
 {
