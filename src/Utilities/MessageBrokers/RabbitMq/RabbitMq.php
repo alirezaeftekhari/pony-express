@@ -1,10 +1,9 @@
 <?php
 
-namespace PonyExpress\Utilities\MessageBrokers;
+namespace PonyExpress\Utilities\MessageBrokers\RabbitMq;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use PonyExpress\Utilities\Sms;
 
 class RabbitMq
 {
@@ -29,7 +28,7 @@ class RabbitMq
         $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
-        $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::sender());
+        $channel->basic_consume(queue: $queueName, no_ack: true, callback: SmsCallBacks::sender());
 
         while ($channel->is_open()) {
             $channel->wait();
@@ -43,7 +42,7 @@ class RabbitMq
         $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
-        $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::successfulSmsStorage());
+        $channel->basic_consume(queue: $queueName, no_ack: true, callback: SmsCallBacks::successfulSmsStorage());
 
         while ($channel->is_open()) {
             $channel->wait();
@@ -57,7 +56,7 @@ class RabbitMq
         $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
-        $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::failedSmsStorage());
+        $channel->basic_consume(queue: $queueName, no_ack: true, callback: SmsCallBacks::failedSmsStorage());
 
         while ($channel->is_open()) {
             $channel->wait();

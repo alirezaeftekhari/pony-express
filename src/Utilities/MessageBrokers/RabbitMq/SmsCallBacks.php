@@ -1,12 +1,12 @@
 <?php
-namespace PonyExpress\Utilities;
+namespace PonyExpress\Utilities\MessageBrokers\RabbitMq;
 
 use Exception;
 use PonyExpress\Helpers\JSON;
 use PonyExpress\PonyExpress;
 use PonyExpress\Utilities\DataBase\MessagesActions;
 
-class Sms
+class SmsCallBacks
 {
     public static function sender(): callable
     {
