@@ -38,13 +38,13 @@ class Mysql
     {
         $stmt = $this->connection->prepare($sql);
 
-        if (isset($number) and $number !== 'undefined')
+        if (isset($number) and $number !== 'undefined' and !empty($number))
             $stmt->bindParam(":number", $number);
-        if (isset($text) and $text !== 'undefined')
+        if (isset($text) and $text !== 'undefined' and !empty($text))
             $stmt->bindParam(":text", $text);
-        if (isset($provider) and $provider !== 'undefined')
+        if (isset($provider) and $provider !== 'undefined' and !empty($provider))
             $stmt->bindParam(":provider", $provider);
-        if (isset($status) and $status !== 'undefined')
+        if (isset($status) and $status !== 'undefined' and !empty($status))
             $stmt->bindParam(":status", $status);
 
         $stmt->execute();
