@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use PonyExpress\Utilities\Mysql\Mysql;
 use PonyExpress\Helpers\JSON;
+use Core\View;
 
 class ReportController
 {
@@ -16,10 +17,10 @@ class ReportController
 
         $sql = "select * from Messages where 1 ";
 
-        (isset($number) and $number     !== 'undefined')      ? $sql .= " and number = :number" : $sql .= '';
-        (isset($text) and $text         !== 'undefined')      ? $sql .= " and text like %:text%" : $sql .= '';
-        (isset($provider) and $provider !== 'undefined')      ? $sql .= " and provider = :provider" : $sql .= '';
-        (isset($status) and $status     !== 'undefined')      ? $sql .= " and status = :status" : $sql .= '';
+        (isset($number) and $number     !== 'undefined' and !empty($number))      ? $sql .= " and number = :number" : $sql .= '';
+        (isset($text) and $text         !== 'undefined' and !empty($text))      ? $sql .= " and text like %:text%" : $sql .= '';
+        (isset($provider) and $provider !== 'undefined' and !empty($provider))      ? $sql .= " and provider = :provider" : $sql .= '';
+        (isset($status) and $status     !== 'undefined' and !empty($status))      ? $sql .= " and status = :status" : $sql .= '';
 
         $mysql = new Mysql();
 
@@ -27,4 +28,10 @@ class ReportController
 
         echo JSON::encoder($data);
     }
+
+//    public function view()
+//    {
+//        echo View::render('report', ['name' => 'pure']);
+//    }
+
 }
