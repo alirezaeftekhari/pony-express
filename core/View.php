@@ -6,6 +6,9 @@ use Exception;
 
 class View
 {
+    /**
+     * @throws Exception
+     */
     public static function render(string $view, array $parameters = []): string
     {
         $viewPath = __DIR__.'/../app/Views/'.$view.'.html';
