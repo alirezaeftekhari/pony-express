@@ -9,7 +9,7 @@ use PonyExpress\Providers\KaveNegar\KaveNegar;
 
 class SmsSenderController
 {
-    public function index()
+    public function send()
     {
         $number = filter_input(INPUT_POST, 'number');
         $text = filter_input(INPUT_POST, 'text');
