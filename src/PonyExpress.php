@@ -13,6 +13,6 @@ class PonyExpress
 
     public function store(AbstractProvider $provider, string $status): string|bool
     {
-        $provider->store($status);
+        return $provider->store($status);
     }
 }
