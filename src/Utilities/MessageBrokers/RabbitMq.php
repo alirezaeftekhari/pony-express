@@ -10,7 +10,7 @@ class RabbitMq
 {
     public static function broker(string $queueName, string $text)
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection($_ENV['RABBITMQ_HOST'], $_ENV['RABBITMQ_PORT'], $_ENV['RABBITMQ_USER'], $_ENV['RABBITMQ_PASS']);
 
         $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
@@ -24,9 +24,9 @@ class RabbitMq
 
     public static function smsSender(string $queueName)
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
+        $connection = new AMQPStreamConnection($_ENV['RABBITMQ_HOST'], $_ENV['RABBITMQ_PORT'], $_ENV['RABBITMQ_USER'], $_ENV['RABBITMQ_PASS']);
 
+        $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
         $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::sender());
@@ -38,9 +38,9 @@ class RabbitMq
 
     public static function successfulSmsStorage(string $queueName)
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
+        $connection = new AMQPStreamConnection($_ENV['RABBITMQ_HOST'], $_ENV['RABBITMQ_PORT'], $_ENV['RABBITMQ_USER'], $_ENV['RABBITMQ_PASS']);
 
+        $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
         $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::successfulSmsStorage());
@@ -52,9 +52,9 @@ class RabbitMq
 
     public static function failedSmsStorage(string $queueName)
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
+        $connection = new AMQPStreamConnection($_ENV['RABBITMQ_HOST'], $_ENV['RABBITMQ_PORT'], $_ENV['RABBITMQ_USER'], $_ENV['RABBITMQ_PASS']);
 
+        $channel = $connection->channel();
         $channel->queue_declare(queue: $queueName, auto_delete: false);
 
         $channel->basic_consume(queue: $queueName, no_ack: true, callback: Sms::failedSmsStorage());
