@@ -1,4 +1,5 @@
 create database if not exists PonyExpress;
+
 use PonyExpress;
 
 create table if not exists Messages(
@@ -8,3 +9,11 @@ create table if not exists Messages(
     provider text,
     status enum('sent', 'failed')
 );
+
+create table if not exists Users(
+    id int auto_increment primary key,
+    username varchar(60) unique,
+    password text
+);
+
+insert into Users (username, password) values ('admin', md5('admin'));
