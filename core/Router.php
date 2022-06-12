@@ -6,6 +6,13 @@ class Router
 {
     private static array $routes = [];
 
+    private static function serveDirs(): array
+    {
+        return [
+            'assets'
+        ];
+    }
+
     public static function addRoute(string $uri, array $controllerAction): void
     {
         static::$routes[$uri] = $controllerAction;
@@ -19,7 +26,7 @@ class Router
             $controller->$actionName();
             return true;
         }
-        foreach (Config::get('SERVE_DIRS') as $dir) {
+        foreach (self::serveDirs() as $dir) {
             if (str_starts_with($requestUri, '/'.$dir.'/')) {
                 return false;
             }
