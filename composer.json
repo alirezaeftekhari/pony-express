@@ -1,4 +1,7 @@
 {
+  "name": "pure/pony-express",
+  "type": "library",
+  "description": "a simple package for sms sending",
   "autoload": {
     "psr-4": {
       "PonyExpress\\": "src/",
@@ -14,22 +17,13 @@
   "require": {
     "php": "^8.1",
     "ext-json": "*",
-    "psr/http-client": "^1.0",
-    "ghasedak/php": "^1.0",
+    "ext-pdo": "*",
     "php-amqplib/php-amqplib": "^3.2",
+    "ghasedak/php": "^1.0",
     "kavenegar/php": "^1.2",
-    "ext-pdo": "*"
+    "vlucas/phpdotenv": "^5.4"
   },
   "require-dev": {
-    "ext-curl": "*",
-    "ergebnis/composer-normalize": "^2.0",
-    "php-http/client-integration-tests": "*",
-    "phpunit/phpunit": "^8.5.5",
-    "psr/log": "^1.1"
-  },
-  "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true
-    }
+    "phpunit/phpunit": "^8.5.5"
   }
 }
