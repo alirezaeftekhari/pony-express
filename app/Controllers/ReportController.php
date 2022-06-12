@@ -8,7 +8,7 @@ use Core\View;
 
 class ReportController
 {
-    public function report()
+    public function reportApi()
     {
         $number = filter_input(INPUT_POST, 'number');
         $text = filter_input(INPUT_POST, 'text');
@@ -29,7 +29,7 @@ class ReportController
         echo JSON::encoder($data);
     }
 
-    public function index()
+    public function report()
     {
         echo View::render('report');
     }
