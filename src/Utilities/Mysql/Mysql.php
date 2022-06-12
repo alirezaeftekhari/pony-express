@@ -50,4 +50,14 @@ class Mysql
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getUserByUserName(string $username): array|bool
+    {
+        $sql = "select * from Users where username = :username";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
