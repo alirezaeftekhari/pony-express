@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+    database:
+      build:
+        context: .
+        dockerfile: Dockerfile-mysql
+      container_name: database
+      hostname: database
+      environment:
+        - MYSQL_ROOT_PASSWORD="root"
+        - MYSQL_DATABASE="app"
+      ports:
+        - 3306:3306
+      networks:
+        - app-network
+
+
+    app:
+      build:
+        context: .
+        dockerfile: Dockerfile-app
+      container_name: application
+      hostname: application
+      ports:
+        - 80:80
+      networks:
+        - app-network
+
+
+    rabbitmq:
+      image: rabbitmq:3.8-management
+      container_name: rabbitmq
+      hostname: rabbitmq
+      environment:
+        - RABBITMQ_VHOST="/"
+        - RABBITMQ_USERNAME="root"
+        - RABBITMQ_PASSWORD="root"
+      ports:
+        - '5672:5672'
+        - '15672:15672'
+      networks:
+        - app-network
+
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
