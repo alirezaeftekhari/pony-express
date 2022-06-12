@@ -1,11 +1,10 @@
 <?php
-
 namespace PonyExpress\Utilities;
 
 use Exception;
 use PonyExpress\Helpers\JSON;
 use PonyExpress\PonyExpress;
-use PonyExpress\Utilities\DataBase\Mysql;
+use PonyExpress\Utilities\DataBase\MessagesActions;
 
 class Sms
 {
@@ -59,9 +58,9 @@ class Sms
             $text = $decodedMessage['text'];
             $provider = $decodedMessage['provider'];
 
-            $mysql = new Mysql();
+            $messagesActions = new MessagesActions();
             try {
-                $mysql->store($number, $text, $provider, 'sent');
+                $messagesActions->store($number, $text, $provider, 'sent');
 
                 //show log
                 echo "\e[32m The message that sent has stored in the database!".PHP_EOL;
@@ -69,8 +68,6 @@ class Sms
                 echo "\e[32m number: $number | text: $text".PHP_EOL;
                 echo PHP_EOL;
             } catch (Exception $exception) {
-                $mysql->store($number, $text, $provider, 'failed');
-
                 //show log
                 echo "\e[31m ****************** Attention: ******************".PHP_EOL;
                 echo "\e[31m The message that sent has not stored in the database!".PHP_EOL;
@@ -92,9 +89,9 @@ class Sms
             $text = $decodedMessage['text'];
             $provider = $decodedMessage['provider'];
 
-            $mysql = new Mysql();
+            $messagesActions = new MessagesActions();
             try {
-                $mysql->store($number, $text, $provider, 'failed');
+                $messagesActions->store($number, $text, $provider, 'failed');
 
                 //show log
                 echo "\e[32m The message that failed to send has stored in the database!".PHP_EOL;
@@ -102,8 +99,6 @@ class Sms
                 echo "\e[32m number: $number | text: $text".PHP_EOL;
                 echo PHP_EOL;
             } catch (Exception $exception) {
-                $mysql->store($number, $text, $provider, 'failed');
-
                 //show log
                 echo "\e[31m ****************** Attention: ******************".PHP_EOL;
                 echo "\e[31m The message that failed to send has not stored in the database!".PHP_EOL;
