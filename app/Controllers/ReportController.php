@@ -8,7 +8,7 @@ use Core\View;
 
 class ReportController
 {
-    public function index()
+    public function report()
     {
         $number = filter_input(INPUT_POST, 'number');
         $text = filter_input(INPUT_POST, 'text');
@@ -17,7 +17,7 @@ class ReportController
 
         $sql = "select * from Messages where 1 ";
 
-        (isset($number) and $number     !== 'undefined' and !empty($number))    ? $sql .= " and number = :number" : $sql .= '';
+        (isset($number) and $number     !== 'undefined' and !empty($number))    ? $sql .= " and number like :number" : $sql .= '';
         (isset($text) and $text         !== 'undefined' and !empty($text))      ? $sql .= " and text like :text" : $sql .= '';
         (isset($provider) and $provider !== 'undefined' and !empty($provider))  ? $sql .= " and provider = :provider" : $sql .= '';
         (isset($status) and $status     !== 'undefined' and !empty($status))    ? $sql .= " and status = :status" : $sql .= '';
@@ -29,9 +29,9 @@ class ReportController
         echo JSON::encoder($data);
     }
 
-//    public function view()
-//    {
-//        echo View::render('report', ['name' => 'pure']);
-//    }
+    public function index()
+    {
+        echo View::render('report');
+    }
 
 }
