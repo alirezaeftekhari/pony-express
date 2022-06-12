@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use PonyExpress\Utilities\Mysql\Mysql;
+use PonyExpress\Utilities\DataBase\Mysql;
 
 class User
 {

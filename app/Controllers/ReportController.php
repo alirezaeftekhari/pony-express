@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use PonyExpress\Utilities\Mysql\Mysql;
+use PonyExpress\Utilities\DataBase\Mysql;
 use PonyExpress\Helpers\JSON;
 use Core\View;
 
