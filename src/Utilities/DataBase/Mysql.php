@@ -1,6 +1,6 @@
 <?php
 
-namespace PonyExpress\Utilities\Mysql;
+namespace PonyExpress\Utilities\DataBase;
 
 use PDO;
 use PDOException;

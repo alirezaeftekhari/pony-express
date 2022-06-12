@@ -5,7 +5,7 @@ namespace PonyExpress\Utilities;
 use Exception;
 use PonyExpress\Helpers\JSON;
 use PonyExpress\PonyExpress;
-use PonyExpress\Utilities\Mysql\Mysql;
+use PonyExpress\Utilities\DataBase\Mysql;
 
 class Sms
 {
