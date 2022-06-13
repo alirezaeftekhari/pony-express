@@ -9,6 +9,10 @@ use App\Models\Message;
 
 class ReportController
 {
+    /**
+     * ReportController reportApi.
+     * @return void
+     */
     public function reportApi()
     {
         $number = filter_input(INPUT_POST, 'number');
@@ -19,6 +23,10 @@ class ReportController
         echo JSON::encoder(Message::read($number, $text, $provider, $status));
     }
 
+    /**
+     * ReportController index.
+     * @return void
+     */
     public function index()
     {
         try {
