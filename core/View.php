@@ -7,6 +7,10 @@ use Exception;
 class View
 {
     /**
+     * Router dispatch.
+     * @param string $view
+     * @param array $parameters
+     * @return string
      * @throws Exception
      */
     public static function render(string $view, array $parameters = []): string
