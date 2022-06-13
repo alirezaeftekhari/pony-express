@@ -24,6 +24,6 @@
     "vlucas/phpdotenv": "^5.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.5.5"
+    "phpunit/phpunit": "^9"
   }
 }
