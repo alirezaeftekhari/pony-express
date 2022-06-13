@@ -4,7 +4,7 @@ namespace PonyExpress\Providers;
 
 use Exception;
 use PonyExpress\Helpers\JSON;
-use PonyExpress\Utilities\MessageBrokers\RabbitMq\RabbitMq;
+use PonyExpress\Utilities\MessageBrokers\MessageBrokerInterface;
 
 abstract class AbstractProvider
 {
@@ -20,12 +20,13 @@ abstract class AbstractProvider
 
     /**
      * AbstractProvider sendAsync.
+     * @param MessageBrokerInterface $messageBroker
      * @return string|bool
      */
-    public function sendAsync(): string|bool
+    public function sendAsync(MessageBrokerInterface $messageBroker): string|bool
     {
         try {
-            RabbitMq::broker('messages', JSON::encoder([
+            $messageBroker::broker('messages', JSON::encoder([
                 "number" => $this->number,
                 "text" => $this->text,
                 "provider" => static::class
@@ -38,15 +39,16 @@ abstract class AbstractProvider
 
     /**
      * AbstractProvider store.
+     * @param MessageBrokerInterface $messageBroker
      * @param string $status
      * @return string|bool
      */
-    public function store(string $status): string|bool
+    public function store(MessageBrokerInterface $messageBroker, string $status): string|bool
     {
         $queueName = $status === 'sent' ? 'sent-messages' : 'failed-messages' ;
 
         try {
-            RabbitMq::broker($queueName, JSON::encoder([
+            $messageBroker::broker($queueName, JSON::encoder([
                 "number" => $this->number,
                 "text" => $this->text,
                 "provider" => static::class

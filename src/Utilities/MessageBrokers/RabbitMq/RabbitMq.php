@@ -5,8 +5,9 @@ namespace PonyExpress\Utilities\MessageBrokers\RabbitMq;
 use Exception;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PonyExpress\Utilities\MessageBrokers\MessageBrokerInterface;
 
-class RabbitMq
+class RabbitMq implements MessageBrokerInterface
 {
     /**
      * RabbitMq broker.

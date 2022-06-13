@@ -6,6 +6,7 @@ use PonyExpress\Helpers\JSON;
 use PonyExpress\PonyExpress;
 use PonyExpress\Providers\Ghasedak\Ghasedak;
 use PonyExpress\Providers\KaveNegar\KaveNegar;
+use PonyExpress\Utilities\MessageBrokers\RabbitMq\RabbitMq;
 
 class SmsSenderController
 {
@@ -29,7 +30,7 @@ class SmsSenderController
                 break;
         }
         $ponyExpress = new PonyExpress();
-        $status = $ponyExpress->sendAsync($providerClass);
+        $status = $ponyExpress->sendAsync($providerClass, new RabbitMq());
         echo JSON::encoder(['status' => $status]);
     }
 }
