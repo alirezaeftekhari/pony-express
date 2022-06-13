@@ -36,6 +36,11 @@ abstract class AbstractProvider
         return true;
     }
 
+    /**
+     * AbstractProvider store.
+     * @param string $status
+     * @return string|bool
+     */
     public function store(string $status): string|bool
     {
         $queueName = $status === 'sent' ? 'sent-messages' : 'failed-messages' ;
@@ -52,5 +57,8 @@ abstract class AbstractProvider
         return true;
     }
 
+    /**
+     * AbstractProvider send.
+     */
     abstract public static function send(string $number, string $text);
 }

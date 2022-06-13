@@ -9,6 +9,9 @@ class MessagesActions
 {
     private PDO|null $connection;
 
+    /**
+     * MessagesActions __construct.
+     */
     public function __construct()
     {
         try {
@@ -19,11 +22,21 @@ class MessagesActions
         }
     }
 
+    /**
+     * MessagesActions __destruct.
+     */
     public function __destruct()
     {
         $this->connection = null;
     }
 
+    /**
+     * MessagesActions store.
+     * @param string $number
+     * @param string $text
+     * @param string $provider
+     * @param string $status
+     */
     public function store(string $number, string $text, string $provider, string $status)
     {
         $stmt = $this->connection->prepare("INSERT INTO Messages (number, text, provider, status) VALUES (:number, :text, :provider, :status)");
@@ -34,6 +47,15 @@ class MessagesActions
         $stmt->execute();
     }
 
+    /**
+     * MessagesActions read.
+     * @param string $sql
+     * @param string $number
+     * @param string $text
+     * @param string $provider
+     * @param string $status
+     * @return array
+     */
     public function read(string $sql, mixed $number, mixed $text, mixed $provider, mixed $status): array
     {
         $stmt = $this->connection->prepare($sql);

@@ -11,6 +11,10 @@ class Ghasedak extends AbstractProvider
     final const LINE_NUMBER = '10008566';
 
     /**
+     * Ghasedak send.
+     * @param string $number
+     * @param string $text
+     * @return void
      * @throws Exception
      */
     public static function send(string $number, string $text)
