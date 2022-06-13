@@ -8,6 +8,10 @@ use PonyExpress\Utilities\DataBase\MessagesActions;
 
 class SmsCallBacks
 {
+    /**
+     * SmsCallBacks sender.
+     * @return callable
+     */
     public static function sender(): callable
     {
         return function ($message) {
@@ -48,6 +52,10 @@ class SmsCallBacks
         };
     }
 
+    /**
+     * SmsCallBacks successfulSmsStorage.
+     * @return callable
+     */
     public static function successfulSmsStorage(): callable
     {
         return function ($message) {
@@ -79,6 +87,10 @@ class SmsCallBacks
         };
     }
 
+    /**
+     * SmsCallBacks failedSmsStorage.
+     * @return callable
+     */
     public static function failedSmsStorage(): callable
     {
         return function ($message) {

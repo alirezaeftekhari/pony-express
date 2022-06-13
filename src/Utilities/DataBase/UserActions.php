@@ -10,6 +10,9 @@ class UserActions
 {
     private PDO|null $connection;
 
+    /**
+     * UserActions __construct.
+     */
     public function __construct()
     {
         try {
@@ -20,11 +23,19 @@ class UserActions
         }
     }
 
+    /**
+     * UserActions __destruct.
+     */
     public function __destruct()
     {
         $this->connection = null;
     }
 
+    /**
+     * UserActions getUserByUserName.
+     * @param string $username
+     * @return array|bool
+     */
     public function getUserByUserName(string $username): array|bool
     {
         $sql = "select * from Users where username = :username";
