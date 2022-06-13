@@ -6,6 +6,14 @@ use PonyExpress\Utilities\DataBase\MessagesActions;
 
 class Message
 {
+    /**
+     * Message read.
+     * @param mixed $number
+     * @param mixed $text
+     * @param mixed $provider
+     * @param mixed $status
+     * @return array
+     */
     public static function read(mixed $number, mixed $text, mixed $provider, mixed $status): array
     {
         $sql = "select * from Messages where 1 ";
