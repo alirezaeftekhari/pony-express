@@ -3,6 +3,6 @@ FROM mysql
 ENV MYSQL_DATABASE=app \
     MYSQL_ROOT_PASSWORD=root
 
-ADD ./schema.sql /docker-entrypoint-initdb.d
+ADD ./config/schema.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306
