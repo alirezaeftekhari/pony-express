@@ -29,7 +29,7 @@ class SmsCallBacks
                 $provider::send($number, $text);
 
                 //send to the sent-messages queue
-                $ponyExpress->store(new $provider($number, $text), 'sent');
+                $ponyExpress->store(new $provider($number, $text), new RabbitMq(), 'sent');
 
                 //show log
                 echo "\e[32m Message successfully sent!".PHP_EOL;
@@ -39,7 +39,7 @@ class SmsCallBacks
 
             } catch (Exception $exception) {
                 //send to the failed-messages queue
-                $ponyExpress->store(new $provider($number, $text), 'failed');
+                $ponyExpress->store(new $provider($number, $text), new RabbitMq(), 'failed');
 
                 //show log
                 echo "\e[31m ****************** Attention: ******************".PHP_EOL;
