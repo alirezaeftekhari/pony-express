@@ -31,6 +31,6 @@ curl 'http://localhost:8000/api/sms/send' \
   -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"' \
   -H 'sec-ch-ua-mobile: ?0' \
   -H 'sec-ch-ua-platform: "Linux"' \
-  --data-raw 'number=09120635002&text=HEEEEY&provider=ghasedak' \
+  --data-raw 'number=09120635002&text=test&provider=ghasedak' \
   --compressed
 ```
