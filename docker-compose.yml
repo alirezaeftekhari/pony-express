@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+    database:
+      image: mysql:8
+      container_name: database
+      command: --init-file /config/schema.sql
+      ports:
+        - 3306:3306
+      environment:
+        - MYSQL_ROOT_PASSWORD=qazQAZ12++
+        - MYSQL_PASSWORD=password
+        - MYSQL_USER=root
+      volumes:
+        - ./config:/config
+      networks:
+        - app-network
+
+
+    app:
+      build:
+        context: .
+        dockerfile: Dockerfile-app
+      container_name: application
+      hostname: application
+      ports:
+        - 80:80
+      networks:
+        - app-network
+
+
+    rabbitmq:
+      image: rabbitmq:3.8-management
+      container_name: rabbitmq
+      hostname: rabbitmq
+      environment:
+        - RABBITMQ_VHOST="/"
+        - RABBITMQ_USERNAME="root"
+        - RABBITMQ_PASSWORD="root"
+      ports:
+        - '5672:5672'
+        - '15672:15672'
+      networks:
+        - app-network
+
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
