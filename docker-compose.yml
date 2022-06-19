@@ -1,22 +1,32 @@
 version: '3'
 
 services:
-
     database:
       image: mysql:8
       container_name: database
       command: --init-file /config/schema.sql
       ports:
-        - 3306:3306
+        - "13306:3306"
       environment:
         - MYSQL_ROOT_PASSWORD=qazQAZ12++
-        - MYSQL_PASSWORD=password
-        - MYSQL_USER=root
+        - MYSQL_PASSWORD=qazQAZ12++
       volumes:
         - ./config:/config
       networks:
-        - app-network
+        - pony-network
 
+    rabbitmq:
+      image: rabbitmq:3.8-management
+      container_name: rabbitmq
+      hostname: rabbitmq
+      environment:
+        - RABBITMQ_VHOST="/"
+        - RABBITMQ_USERNAME="rabbitmq"
+        - RABBITMQ_PASSWORD="rabbitmq"
+      ports:
+        - '15672:5672'
+      networks:
+        - pony-network
 
     app:
       build:
@@ -25,27 +35,46 @@ services:
       container_name: application
       hostname: application
       ports:
-        - 80:80
+        - "8000:80"
       networks:
-        - app-network
+        - pony-network
 
-
-    rabbitmq:
-      image: rabbitmq:3.8-management
-      container_name: rabbitmq
-      hostname: rabbitmq
-      environment:
-        - RABBITMQ_VHOST="/"
-        - RABBITMQ_USERNAME="root"
-        - RABBITMQ_PASSWORD="root"
-      ports:
-        - '5672:5672'
-        - '15672:15672'
+    sms_sender:
+      build:
+        context: .
+        dockerfile: Dockerfile-app
+      container_name: sms_sender
+      command:
+        - /var/www/services/SmsSender.php
+      entrypoint: php
+      restart: always
       networks:
-        - app-network
+        - pony-network
 
+    successful_sms_storage:
+      build:
+        context: .
+        dockerfile: Dockerfile-app
+      container_name: successful_sms_storage
+      command:
+        - /var/www/services/SuccessfulSmsStorage.php
+      entrypoint: php
+      restart: always
+      networks:
+        - pony-network
+
+    failed_sms_storage:
+      build:
+        context: .
+        dockerfile: Dockerfile-app
+      container_name: failed_sms_storage
+      command:
+        - /var/www/services/FailedSmsStorage.php
+      entrypoint: php
+      restart: always
+      networks:
+        - pony-network
 
 networks:
-  app-network:
-    name: app-network
+  pony-network:
     driver: bridge

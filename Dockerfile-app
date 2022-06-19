@@ -24,6 +24,8 @@ RUN composer install
 
 COPY . .
 
+RUN chmod -R +x .
+
 COPY ./composer.json ./composer.json
 
 COPY .deploy/nginx.conf /etc/nginx/sites-enabled/default
