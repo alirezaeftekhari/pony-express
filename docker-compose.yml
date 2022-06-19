@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-    database:
+    mysql:
       image: mysql:8
-      container_name: database
+      container_name: mysql
       command: --init-file /config/schema.sql
       ports:
         - "13306:3306"
