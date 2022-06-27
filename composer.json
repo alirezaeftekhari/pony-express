@@ -4,7 +4,7 @@
   "description": "a simple package for sms sending",
   "autoload": {
     "psr-4": {
-      "PonyExpress\\": "src/",
+      "PonyExpress\\": "pony/",
       "App\\": "app/",
       "Core\\": "core/"
     }
