@@ -11,7 +11,7 @@ class ProviderFactory
         return require_once __DIR__."/providers.php";
     }
 
-    public static function get(string $providerName): string
+    public static function get(string $providerName = null): string
     {
         $providers = self::readProviders();
         if (isset($providers[$providerName])) {
