@@ -6,8 +6,6 @@ use PonyExpress\Providers\AbstractProvider;
 
 class KaveNegar extends AbstractProvider
 {
-    final const LINE_NUMBER = '10004346';
-
     /**
      * KaveNegar send.
      * @param string $number
@@ -15,6 +13,6 @@ class KaveNegar extends AbstractProvider
      */
     public static function send(string $number, string $text)
     {
-        KaveNegarApiSingleton::getInstance()->Send(self::LINE_NUMBER, $number, $text);
+        KaveNegarApiSingleton::getInstance()->Send($_ENV['KAVENEGAR_LINE'], $number, $text);
     }
 }

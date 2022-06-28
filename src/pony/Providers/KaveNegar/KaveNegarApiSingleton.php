@@ -6,7 +6,6 @@ use Kavenegar\KavenegarApi;
 
 class KaveNegarApiSingleton extends KavenegarApi
 {
-    final const API_KEY = 'your api key';
     private static KavenegarApi $kavenegarApi;
 
     /**
@@ -14,7 +13,7 @@ class KaveNegarApiSingleton extends KavenegarApi
      */
     private function __construct()
     {
-        parent::__construct(self::API_KEY);
+        parent::__construct($_ENV['KAVENEGAR_API_KEY']);
     }
 
     /**
