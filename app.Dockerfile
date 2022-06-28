@@ -1,7 +1,7 @@
 FROM php:8.1-fpm
 
 # set the working directory
-WORKDIR /var/www
+WORKDIR /var/www/
 
 # install php extensions
 RUN docker-php-ext-install sockets
@@ -22,13 +22,13 @@ RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 # copy project
 COPY . .
 
-# set the nginx conf
-COPY .deploy/nginx.conf /etc/nginx/sites-enabled/default
-
 # install project dependencies
 RUN composer update
 
-# set the X permission for executable files
-RUN chmod +x .deploy/startup.sh
+# set the nginx conf
+COPY .deploy/config/nginx.conf /etc/nginx/sites-enabled/default
 
-CMD ["./.deploy/startup.sh"]
+# set the X permission for executable files
+RUN chmod +x .deploy/config/startup.sh
+
+CMD ["./.deploy/config/startup.sh"]

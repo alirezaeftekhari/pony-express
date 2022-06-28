@@ -26,5 +26,5 @@ COPY . .
 RUN composer update
 
 # set the X permission for executable files
-RUN chmod -R +x services
+RUN chmod -R +x src/services
 

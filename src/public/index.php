@@ -2,10 +2,10 @@
 
 use Core\Router;
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
 //load the .env file
-$dotenv = Dotenv\Dotenv::createMutable(__DIR__.'/..');
+$dotenv = Dotenv\Dotenv::createMutable(__DIR__.'/../..');
 $dotenv->load();
 
 include __DIR__.'/../app/routes.php';

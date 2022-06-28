@@ -4,14 +4,14 @@ services:
     mysql:
       image: mysql:8
       container_name: mysql
-      command: --init-file /config/schema.sql
+      command: --init-file /.deploy/config/schema.sql
       ports:
         - "13306:3306"
       environment:
         - MYSQL_ROOT_PASSWORD=qazQAZ12++
         - MYSQL_PASSWORD=qazQAZ12++
       volumes:
-        - ./config:/config
+        - ./.deploy:/.deploy
       networks:
         - pony-network
 
