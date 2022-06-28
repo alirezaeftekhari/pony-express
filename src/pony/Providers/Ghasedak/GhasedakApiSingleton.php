@@ -6,7 +6,6 @@ use Ghasedak\GhasedakApi;
 
 class GhasedakApiSingleton extends GhasedakApi
 {
-    final const API_KEY = 'your api key';
     private static GhasedakApi $ghasedakApi;
 
     /**
@@ -14,7 +13,7 @@ class GhasedakApiSingleton extends GhasedakApi
      */
     private function __construct()
     {
-        parent::__construct(self::API_KEY);
+        parent::__construct($_ENV['GHASEDAK_API_KEY']);
     }
 
     /**
