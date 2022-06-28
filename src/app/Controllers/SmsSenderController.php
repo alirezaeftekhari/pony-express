@@ -4,9 +4,8 @@ namespace App\Controllers;
 
 use PonyExpress\Helpers\JSON;
 use PonyExpress\PonyExpress;
-use PonyExpress\Providers\Ghasedak\Ghasedak;
-use PonyExpress\Providers\KaveNegar\KaveNegar;
 use PonyExpress\Utilities\MessageBrokers\RabbitMq\RabbitMq;
+use PonyExpress\Providers\ProviderFactory;
 
 class SmsSenderController
 {
@@ -20,15 +19,9 @@ class SmsSenderController
         $text = filter_input(INPUT_POST, 'text');
         $provider = filter_input(INPUT_POST, 'provider');
 
-        switch ($provider) {
-            case 'ghasedak':
-            default:
-                $providerClass = new Ghasedak($number, $text);
-                break;
-            case 'kavenegar':
-                $providerClass = new KaveNegar($number, $text);
-                break;
-        }
+        $providerClassName = ProviderFactory::get($provider);
+        $providerClass = new $providerClassName($number, $text);
+
         $ponyExpress = new PonyExpress();
         $status = $ponyExpress->sendAsync($providerClass, new RabbitMq());
         echo JSON::encoder(['status' => $status]);
