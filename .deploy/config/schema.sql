@@ -7,7 +7,8 @@ create table if not exists Messages(
     number varchar(11),
     text text,
     provider text,
-    status enum('sent', 'failed')
+    status enum('sent', 'failed'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 create table if not exists Users(

@@ -63,6 +63,7 @@
                       <th scope="col">Text</th>
                       <th scope="col">Provider</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Created At</th>
                     </tr>
                   </thead>
                   <tbody id="tableBody">
@@ -127,11 +128,15 @@
                 let status = document.createElement('td');
                 status.innerHTML = elm.status;
 
+                let createdAt = document.createElement('td');
+                createdAt.innerHTML = elm.created_at;
+
                 tr.appendChild(id);
                 tr.appendChild(number);
                 tr.appendChild(text);
                 tr.appendChild(provider);
                 tr.appendChild(status);
+                tr.appendChild(createdAt);
 
                 tableBody.appendChild(tr);
             });
