@@ -6,7 +6,7 @@ services:
       container_name: mysql
       command: --init-file /.deploy/config/schema.sql
       ports:
-        - "13306:3306"
+        - "${MYSQL_PORT}:3306"
       environment:
         - MYSQL_ROOT_PASSWORD=qazQAZ12++
         - MYSQL_PASSWORD=qazQAZ12++
@@ -24,7 +24,7 @@ services:
         - RABBITMQ_USERNAME="rabbitmq"
         - RABBITMQ_PASSWORD="rabbitmq"
       ports:
-        - '15672:5672'
+        - '${RABBITMQ_PORT}:5672'
       networks:
         - pony-network
 
@@ -35,7 +35,7 @@ services:
       container_name: application
       hostname: application
       ports:
-        - "8000:80"
+        - "${APP_PORT}:80"
       networks:
         - pony-network
 
