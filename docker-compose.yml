@@ -6,7 +6,7 @@ services:
       container_name: mysql
       command: --init-file /.deploy/config/schema.sql
       ports:
-        - "${MYSQL_PORT}:3306"
+        - "${LOCAL_MYSQL_PORT}:3306"
       environment:
         - MYSQL_ROOT_PASSWORD=qazQAZ12++
         - MYSQL_PASSWORD=qazQAZ12++
@@ -24,7 +24,7 @@ services:
         - RABBITMQ_USERNAME="rabbitmq"
         - RABBITMQ_PASSWORD="rabbitmq"
       ports:
-        - '${RABBITMQ_PORT}:5672'
+        - '${LOCAL_RABBITMQ_PORT}:5672'
       networks:
         - pony-network
 
@@ -35,7 +35,7 @@ services:
       container_name: application
       hostname: application
       ports:
-        - "${APP_PORT}:80"
+        - "${LOCAL_APP_PORT}:80"
       networks:
         - pony-network
 
@@ -45,7 +45,7 @@ services:
         dockerfile: smsServices.Dockerfile
       container_name: sms_sender
       command:
-        - /var/www/services/SmsSender.php
+        - /var/www/src/services/SmsSender.php
       entrypoint: php
       restart: always
       networks:
@@ -57,7 +57,7 @@ services:
         dockerfile: smsServices.Dockerfile
       container_name: successful_sms_storage
       command:
-        - /var/www/services/SuccessfulSmsStorage.php
+        - /var/www/src/services/SuccessfulSmsStorage.php
       entrypoint: php
       restart: always
       networks:
@@ -69,7 +69,7 @@ services:
         dockerfile: smsServices.Dockerfile
       container_name: failed_sms_storage
       command:
-        - /var/www/services/FailedSmsStorage.php
+        - /var/www/src/services/FailedSmsStorage.php
       entrypoint: php
       restart: always
       networks:
