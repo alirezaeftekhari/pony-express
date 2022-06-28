@@ -6,7 +6,7 @@ use Ghasedak\GhasedakApi;
 
 class GhasedakApiSingleton extends GhasedakApi
 {
-    final const API_KEY = 'fb987e82b13dad3af68d64896f4c005a3a8f1abaa5a714e38096d62fcd862ffc';
+    final const API_KEY = 'your api key';
     private static GhasedakApi $ghasedakApi;
 
     /**
